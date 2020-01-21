@@ -41,12 +41,10 @@ class APP extends Component {
             <Menu.Item key="about"><Link to="/about">关于</Link></Menu.Item>
           </Menu>
         </Header>
-        <Content>
-          <div style={{ background: '#fff', minHeight: 280, height: "100%" }}>
+        <Content style={{flexGrow:1}}>
             <Route path="/home" component={Home}></Route>
             <Route path="/about" component={About}></Route>
             <Route path="/movie" component={Movie}></Route>
-          </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>React-Movie ©2020 Created by Zhang Ce</Footer>
       </Layout>,

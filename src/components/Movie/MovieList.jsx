@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin, Alert } from 'antd';
+import { Spin, Alert, Pagination } from 'antd';
 import Axios from 'axios'
 import MovieItem from './MovieItem.jsx'
 
@@ -19,19 +19,22 @@ class MovieList extends Component {
         this.axiosRequest()
     }
     render() {
-        return <div style={{ display: "flex", flexWrap: "wrap" }}>
-            {this.renderList()}
-            {this.state.movieList&&this.state.movieList.map((item, i) => {
-                return <MovieItem {...item} key={i}></MovieItem>
-            })}
+        return <div>
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
+                {this.renderList()}
+                {this.state.movieList && this.state.movieList.map((item, i) => {
+                    return <MovieItem {...item} key={i}></MovieItem>
+                })}
+                
+            </div>
+            <Pagination defaultCurrent={this.state.page}  pageSize={10} total={this.state.total||0} onChange={this.onChange}/>
         </div>
-
     }
-    componentDidUpdate(prevProps,prevState){
-        if(this.props!==prevProps){
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props !== prevProps) {
             this.setState({
-                isLoading:true,
-                movieList:[]
+                isLoading: true,
+                movieList: []
             })
             this.axiosRequest()
         }
@@ -52,12 +55,13 @@ class MovieList extends Component {
         }
     }
     axiosRequest() {
-        let params=this.props.match.params
+        let params = this.props.match.params
         setTimeout(() => {
             let data = require(`./${params.type}${params.page}.json`)
             this.setState({
                 isLoading: false,
-                movieList: data.subjects
+                movieList: data.subjects,
+                total:data.total
             })
             console.log(data.subjects);
         }, 1000)
@@ -72,7 +76,11 @@ class MovieList extends Component {
         //         })
         //     })
     }
-
+    //页码的改变事件
+    onChange=(page)=>{
+        window.location.hash="#/movie/"+this.props.match.params.type+"/"+page
+        
+    }
 }
 
 export default MovieList

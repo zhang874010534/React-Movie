@@ -53,24 +53,24 @@ class MovieList extends Component {
     }
     axiosRequest() {
         let params=this.props.match.params
-        // setTimeout(() => {
-        //     let data = require(`./${params.type}${params.page}.json`)
-        //     this.setState({
-        //         isLoading: false,
-        //         movieList: data.subjects
-        //     })
-        //     console.log(data.subjects);
-        // }, 1000)
-        const start = (params.page - 1) * this.state.pageCount
-        const url = `/v2/movie/${params.type}?apikey=0df993c66c0c636e29ecbb5344252a4a&start=${start}&count=${this.state.pageCount}`
-        Axios.get(url)
-            .then(response => {
-                console.log(response);
-                this.setState({
-                    isLoading:false,
-                    movieList:response.data.subjects
-                })
+        setTimeout(() => {
+            let data = require(`./${params.type}${params.page}.json`)
+            this.setState({
+                isLoading: false,
+                movieList: data.subjects
             })
+            console.log(data.subjects);
+        }, 1000)
+        // const start = (params.page - 1) * this.state.pageCount
+        // const url = `/v2/movie/${params.type}?apikey=0df993c66c0c636e29ecbb5344252a4a&start=${start}&count=${this.state.pageCount}`
+        // Axios.get(url)
+        //     .then(response => {
+        //         console.log(response);
+        //         this.setState({
+        //             isLoading:false,
+        //             movieList:response.data.subjects
+        //         })
+        //     })
     }
 
 }

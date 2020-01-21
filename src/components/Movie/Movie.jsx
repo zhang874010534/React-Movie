@@ -15,18 +15,18 @@ class Movie extends Component {
         super(props);
         this.state = {  }
     }
-    render() { 
+    render() {
         return <Layout style={{height:"100%"}}>
         <Sider width={200} style={{ background: '#fff' }}>
           <Menu
             mode="inline"
-            defaultSelectedKeys={['1']}
+            defaultSelectedKeys={[window.location.hash.split('/')[2]||"in_theaters"]}
             defaultOpenKeys={['sub1']}
             style={{ height: '100%', borderRight: 0 }}
           >
-              <Menu.Item key="1"><Link to="/movie/in_theaters/1">正在热映</Link></Menu.Item>
-              <Menu.Item key="2"><Link to="/movie/coming_soon/1">即将上映</Link></Menu.Item>
-              <Menu.Item key="3"><Link to="/movie/top250/1">Top250</Link></Menu.Item>
+              <Menu.Item key="in_theaters"><Link to="/movie/in_theaters/1">正在热映</Link></Menu.Item>
+              <Menu.Item key="coming_soon"><Link to="/movie/coming_soon/1">即将上映</Link></Menu.Item>
+              <Menu.Item key="top250"><Link to="/movie/top250/1">Top250</Link></Menu.Item>
           </Menu>
         </Sider>
         <Layout style={{ paddingLeft:"1px" }}>
@@ -43,6 +43,9 @@ class Movie extends Component {
         </Layout>
       </Layout>
         
+    }
+    componentDidUpdate(){
+      
     }
 }
  

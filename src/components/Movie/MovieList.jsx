@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Spin, Alert, Pagination } from 'antd';
-import Axios from 'axios'
+import fetchJSONP from 'fetch-jsonp'
 import MovieItem from './MovieItem.jsx'
 
 class MovieList extends Component {
@@ -23,7 +23,7 @@ class MovieList extends Component {
             <div style={{ display: "flex", flexWrap: "wrap" }}>
                 {this.renderList()}
                 {this.state.movieList && this.state.movieList.map((item, i) => {
-                    return <MovieItem {...item} key={i}></MovieItem>
+                    return <MovieItem {...item} key={i} ></MovieItem>
                 })}
                 
             </div>
@@ -56,15 +56,29 @@ class MovieList extends Component {
     }
     axiosRequest() {
         let params = this.props.match.params
-        setTimeout(() => {
-            let data = require(`./${params.type}${params.page}.json`)
-            this.setState({
-                isLoading: false,
-                movieList: data.subjects,
-                total:data.total
+        // fetchJSONP('https://api.douban.com/v2/movie/'+params.type+'/' + params.page + '?apikey=0df993c66c0c636e29ecbb5344252a4a'&start&count=${this.state.pageCount})
+        let start=(params.page - 1) * this.state.pageCount
+        fetchJSONP(`https://api.douban.com/v2/movie/${params.type}?apikey=0df993c66c0c636e29ecbb5344252a4a&start=${start}&count=${this.state.pageCount}`)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    isLoading: false,
+                    movieList: data.subjects,
+                    total:data.total
+                })
             })
-            console.log(data.subjects);
-        }, 1000)
+
+
+       
+        // setTimeout(() => {
+        //     let data = require(`./${params.type}${params.page}.json`)
+        //     this.setState({
+        //         isLoading: false,
+        //         movieList: data.subjects,
+        //         total:data.total
+        //     })
+        //     // console.log(data.subjects);
+        // }, 1000)
         // const start = (params.page - 1) * this.state.pageCount
         // const url = `/v2/movie/${params.type}?apikey=0df993c66c0c636e29ecbb5344252a4a&start=${start}&count=${this.state.pageCount}`
         // Axios.get(url)

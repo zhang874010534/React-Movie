@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter, Router, Link, Route } from 'react-router-dom'
+import { HashRouter, Link, Route } from 'react-router-dom'
 import AppStyle from './css/App.module.scss'
 
 //导入路由组件

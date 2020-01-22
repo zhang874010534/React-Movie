@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, Switch } from 'react-router-dom'
 
 //导入组件
 import MovieList from './MovieList.jsx'
-
+import MovieDetail from './MovieDetail.jsx'//影片详情页
 //antd
 import { Layout, Menu, } from 'antd';
 
@@ -37,7 +37,11 @@ class Movie extends Component {
           minHeight: 280
         }}
       >
-        <Route path="/movie/:type/:page" component={MovieList}></Route>
+        <Switch>
+          <Route path="/movie/detail/:id" component={MovieDetail}></Route>
+          <Route path="/movie/:type/:page" component={MovieList}></Route>
+        </Switch>
+
       </Content>
     </Layout>
 
